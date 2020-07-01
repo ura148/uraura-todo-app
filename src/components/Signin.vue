@@ -6,7 +6,10 @@
     <input type="email" placeholder="email" v-model="email">
     <input type="password" placeholder="Password" v-model="password">
     <button @click="signIn">Signin</button>
-    
+
+    <!-- googleのアカウントでサインイン。アカウントがなければ新規に作成されます。 -->
+    <button @click="signInWithGoogle">Googleアカウントでサインイン</button>
+
     <p>
       アカウントをお持ちではない方
       <router-link to="/signup">新規作成</router-link>
@@ -40,6 +43,20 @@ export default {
           // ログインに失敗した場合
           alert(error.message);
         });
+    },
+    // googleでサインインするときに呼ばれるfunction
+    signInWithGoogle: function() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(user => {
+          this.$router.push("/");
+        }).catch(
+          error => {
+            alert(error.message)
+          }
+        );
     }
   }
 };
