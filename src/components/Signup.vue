@@ -31,7 +31,9 @@ export default {
     // singUpボタンが押されたときに実行されるfunctrion
     signUp: function() {
       firebase
-        .auth().createUserWithEmailAndPassword(this.email, this.password)
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+          // .then(user => {alert("Create account: " + user.user.email);})
         .then(user => {
           // 成功時
           alert("Create account: " + user.user.email);
