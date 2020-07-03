@@ -4,6 +4,7 @@
     <div>
       <!-- 初期はVーmodelで"newTodoName"を入れているが空白、故にタスク作った後に空白にしないとミスが起こる -->
       <input type="text" v-model="newTodoName">
+      <input type="date" v-model="deadline">
       <button type="submit" v-on:click="createTodo()">タスク作成</button>
     </div>
     <ul>
@@ -13,7 +14,11 @@
     </ul>
     <!-- todoの一覧表示 -->
     <ul v-for="(todo, key) in filteredTodos" :key="todo.id">
-      <li><input type="checkbox" v-model="todo.isComplete" v-on:click="updateIsCompleteTodo(todo, key)">{{ todo.name + key }}</li>
+      <li class="card">
+        <input type="checkbox" v-model="todo.isComplete" v-on:click="updateIsCompleteTodo(todo, key)">
+        <p>{{ todo.name }}</p>
+        <p>{{ todo.date }}</p>
+      </li>
       <button type="submit" v-on:click="deleteTodo(key)">削除</button>
     </ul>
   </div>
@@ -29,6 +34,7 @@ export default {
       database: null,
       todosRef: null,
       newTodoName: "",
+      deadline:"",
       showTodoType: "all",
       todos: []
     };
@@ -50,15 +56,17 @@ export default {
       if (this.showTodoType == 'all') {
         return this.todos;
       } else {
-        var showIsComplete = false;
+        var showComplete = false;
         if (this.showTodoType == 'complete') {
-          showIsComplete = true
+          showComplete = true
         }
         var filterTodos = {};
+
         for (var key in this.todos) {
           var todo = this.todos[key];
-          if (todo.isComplete == showIsComplete) {
+          if (todo.isComplete == showComplete) {
             filterTodos[key] = todo;
+            console.log(filterTodos[key]);
           }
         }
         console.log(filterTodos);
@@ -69,16 +77,13 @@ export default {
   methods: {
     // DBのtodos/[uid]/以下にデータを格納していく
     createTodo: function() {
-      // 何もなければタスクは作られない
-      if (this.newTodoName == "") {
-        return;
-      }
-      // databaseにタスク名と完了未完了状態を入力
+      if (this.newTodoName == "") { return; }
       this.todosRef.push({
         name: this.newTodoName,
-        isComplete: false
-      });
-      this.newTodoName = ""
+        isComplete: false,
+        date: this.deadline,
+      })
+      this.newTodoName = "";
     },
     // 完了・未完了の値の更新
     updateIsCompleteTodo: function(todo, key) {
@@ -98,4 +103,5 @@ export default {
 </script>
 
 <style>
+
 </style>
