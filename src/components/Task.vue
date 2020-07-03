@@ -13,6 +13,7 @@
       <li><button type="submit" v-on:click="showTodoType = 'complete'">完了タスク一覧</button></li>
     </ul>
     <!-- todoの一覧表示 -->
+    <p>{{ taskNumber + "個のタスク" }}</p>
     <ul v-for="(todo, key) in filteredTodos" :key="todo.id">
       <li class="card">
         <input type="checkbox" v-model="todo.isComplete" v-on:click="updateIsCompleteTodo(todo, key)">
@@ -54,6 +55,7 @@ export default {
     // フィルターの実装showTodoTypeが変更されると実行される
     filteredTodos: function () {
       if (this.showTodoType == 'all') {
+        console.log(this.todos);
         return this.todos;
       } else {
         var showComplete = false;
@@ -72,7 +74,57 @@ export default {
         console.log(filterTodos);
         return filterTodos;
       }
-    }
+    },
+    taskNumber: function () {
+      let count = 0;
+      for (var key in this.todos) {
+        var todo = this.todos[key];
+        if (this.showTodoType == 'all'){
+          console.log(key);
+          count += 1;
+          console.log(count);
+        } else if (this.showTodoType == 'active'){
+          if (todo.isComplete == false){
+            count += 1;
+            console.log(count);
+          }    
+        } else {
+          if (todo.isComplete == true){
+            count += 1;
+          }
+        }
+        // var todo = this.todos[key];
+        // if (todo.isComplete == showComplete) {
+        //   filterTodos[key] = todo;
+        //   console.log(filterTodos[key]);
+        // }
+      }
+      return count;
+
+      // var showComplete = false;
+      // if (this.showTodoType == 'complete') {
+      //   showComplete = true
+      // }
+      // var filterTodos = {};
+      // for (var key in this.todos) {
+      //   var todo = this.todos[key];
+      //   if (todo.isComplete == showComplete) {
+      //     filterTodos[key] = todo;
+      //     console.log(filterTodos[key]);
+      //   }
+      // }
+    },
+    // remaining: function() {
+		// 	var count = 0;
+		// 	var todos = this.todos;
+		// 	var length = todos.length;
+    //   console.log(length);
+			// for(var i = 0; i < length; i++) {
+			// 	if(!todos[i].done) {
+			// 		count++;
+			// 	}
+			// }
+			// return count;
   },
   methods: {
     // DBのtodos/[uid]/以下にデータを格納していく
