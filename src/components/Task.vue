@@ -6,7 +6,7 @@
       <input type="text" v-model="newTodoName">
       <input type="date" v-model="deadline">
       <!-- <button type="submit" v-on:click="createList()">タスク作成</button> -->
-      <button type="submit" v-on:click="createTodo()">タスク作成</button>
+      <button type="submit" v-on:click="createTodo()">リスト作成</button>
     </div>
     <ul>
       <li><button class="btn" type="submit" v-on:click="showTodoType = 'all'">すべて</button></li>
@@ -26,7 +26,7 @@
 
         <!-- subTodoを表示 -->
         <div class="subcard" v-for="(subtodo, subkey) in todo.subTasks" :key="subtodo.id">
-          <input type="checkbox" v-model="todo.isComplete" v-on:click="updateIsCompleteTodo(subodo, subkey)">
+          <input type="checkbox" v-model="subtodo.isComplete" v-on:click="updateIsCompleteTodo(key, subtodo, subkey)">
           <p>{{ subtodo.subName }}</p>
         </div>
 
@@ -125,7 +125,6 @@ export default {
       if (this.newTodoName == "") { return; }
       this.todosRef.push({
         name: this.newTodoName,
-        isComplete: false,
         date: this.deadline,
       })
       this.newTodoName = "";
@@ -140,14 +139,22 @@ export default {
       })
       this.newSubTodoName = "";
     },
-    updateIsCompleteTodo: function(todo, key) {
-      todo.isComplete = !todo.isComplete;
+    updateIsCompleteTodo: function(key, subtodo, subkey) {
+      subtodo.isComplete = !subtodo.isComplete;
       // DB内のデータを更新する
       var updates = {};
       // todo.idで変更するtodoタスクを指定し、dataが更新されたtodoを挿入する
-      updates[key] = todo;
-      this.todosRef.update(updates)
+      updates[subkey] = subtodo;
+      this.todosRef.child(key).child("/subTasks").update(updates)
     },
+    // updateIsCompleteSubTodo: function(todo, key) {
+    //   todo.subTasks.isComplete = !todo.subTasks.isComplete;
+    //   // DB内のデータを更新する
+    //   var updates = {};
+    //   // todo.idで変更するtodoタスクを指定し、dataが更新されたtodoを挿入する
+    //   updates[key] = todo.subTasks;
+    //   this.todosRef.update(updates)
+    // },
     // todoの削除
     deleteTodo: function(key) {
       this.todosRef.child(key).remove();
