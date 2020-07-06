@@ -1,4 +1,4 @@
-# test
+# uraura-todo-app
 
 ## Project setup
 ```
