@@ -17,6 +17,7 @@
 
     <!-- todoの一覧表示 -->
     <p>{{ taskNumber + "個のタスク" }}</p>
+    <!-- <p>{{ judgeFalseAndTrue }}</p> -->
 
     <ul v-for="(todo, key) in filteredTodos" :key="todo.id">
       <li class="card">
@@ -26,8 +27,11 @@
 
         <!-- subTodoを表示 -->
         <div class="subcard" v-for="(subtodo, subkey) in todo.subTasks" :key="subtodo.id">
-          <input type="checkbox" v-model="subtodo.isComplete" v-on:click="updateIsCompleteTodo(key, subtodo, subkey)">
-          <p>{{ subtodo.subName }}</p>
+          <div v-if="subtodo.judge == true">
+            <input type="checkbox" v-model="subtodo.isComplete" v-on:click="updateIsCompleteTodo(key, subtodo, subkey)">
+            <p>{{ subtodo.subName }}</p>
+            <!-- <p>{{ subtodo.subName }}</p> -->
+          </div>
         </div>
 
         <div>
@@ -71,24 +75,33 @@ export default {
     });
   },
   computed: {
-    // フィルターの実装showTodoTypeが変更されると実行される
     filteredTodos: function () {
-      if (this.showTodoType == 'all') {
-        return this.todos;
-      } else {
-        var showComplete = false;
-        if (this.showTodoType == 'complete') {
-          showComplete = true
-        }
-        var filterTodos = {};
-        for (var key in this.todos) {
-          var todo = this.todos[key];
-          if (todo.isComplete == showComplete) {
-            filterTodos[key] = todo;
+      var showComplete = false;
+      if (this.showTodoType == 'complete') {
+        showComplete = true;
+      }
+      let filterTodos = {},
+          filterSubTodos = {};
+      for (let key in this.todos) {
+        let todo = this.todos[key];
+        filterTodos[key] = todo;
+        for (let subkey in todo.subTasks) {
+          let subtodo = todo.subTasks[subkey];
+          // allの場合は全て表示
+          if (this.showTodoType == 'all') {
+            subtodo.judge = true;
+            filterSubTodos[subkey] = subtodo;
+          }
+          // completeの場合はチェックがついているもの、activeの時はチェックがついていないものを表示
+          else if(subtodo.isComplete == showComplete){
+            subtodo.judge = true;
+            filterSubTodos[subkey] = subtodo;
+          } else{
+            subtodo.judge = false;
           }
         }
-        return filterTodos;
       }
+      return filterTodos;
     },
     taskNumber: function () {
       let count = 0;
@@ -120,7 +133,7 @@ export default {
     }
   },
   methods: {
-    // DBのtodos/[uid]/以下にデータを格納していく
+    // DBのtodos/[uid]/以下にデータを格納していく。
     createTodo: function() {
       if (this.newTodoName == "") { return; }
       this.todosRef.push({
@@ -136,6 +149,7 @@ export default {
         isComplete: false,
         subDate: this.subDeadline,
         pairingId: key,
+        judge: false,
       })
       this.newSubTodoName = "";
     },
