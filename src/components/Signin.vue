@@ -51,6 +51,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(user => {
+          alert("success : " + user.user.email);
           this.$router.push("/task");
         }).catch(
           error => {
