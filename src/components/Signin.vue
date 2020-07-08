@@ -8,7 +8,7 @@
     <button @click="signIn">Signin</button>
 
     <!-- googleのアカウントでサインイン。アカウントがなければ新規に作成されます。 -->
-    <button @click="signInWithGoogle">Googleアカウントでサインイン</button>
+    <!-- <button @click="signInWithGoogle">Googleアカウントでサインイン</button> -->
 
     <p>
       アカウントをお持ちではない方
@@ -43,22 +43,22 @@ export default {
           // ログインに失敗した場合
           alert(error.message);
         });
-    },
-    // googleでサインインするときに呼ばれるfunction
-    signInWithGoogle: function() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(user => {
-          alert("success : " + user.user.email);
-          this.$router.push("/task");
-        }).catch(
-          error => {
-            alert(error.message)
-          }
-        );
     }
+    // googleでサインインするときに呼ばれるfunction
+    // signInWithGoogle: function() {
+    //   const provider = new firebase.auth.GoogleAuthProvider();
+    //   firebase
+    //     .auth()
+    //     .signInWithPopup(provider)
+    //     .then(user => {
+    //       alert("success : " + user.user.email);
+    //       this.$router.push("/task");
+    //     }).catch(
+    //       error => {
+    //         alert(error.message)
+    //       }
+    //     );
+    // }
   }
 };
 </script>
