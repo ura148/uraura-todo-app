@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/dist
 <%_ if (rootOptions.plugins && rootOptions.plugins['@vue/cli-plugin-e2e-nightwatch']) { _%>
 
 /tests/e2e/reports/
