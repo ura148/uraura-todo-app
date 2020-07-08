@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import firebase from 'firebase'
 
+Vue.use(VCalendar)
+import VCalendar from 'v-calendar'
+
 Vue.config.productionTip = false
 
 
