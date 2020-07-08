@@ -134,4 +134,24 @@ input, select {
     display:table;
     clear:both;
 }
+
+.card {
+  padding: 16px;
+  margin: 16px;
+  background-color: #c8d2e3;
+  text-align: left;
+}
+
+.subcard {
+  padding: 12px;
+  margin: 16px;
+  background-color: #a6b6d5;
+}
+
+.todo {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 </style>

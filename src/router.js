@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Task from '@/components/Task.vue'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
+import Calendar from '@/components/Calendar'
+import Week from '@/components/Week'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -15,7 +17,7 @@ let router =  new Router({
       redirect: 'signin'
     },
     {
-      path: '/',
+      path: '/task',
       name: 'task',
       component: Task,
       meta: { requiresAuth: true }
@@ -29,6 +31,16 @@ let router =  new Router({
       path: '/signin',
       name: 'Signin',
       component: Signin
+    },
+    {
+      path: '/task/calendar',
+      name: 'Calendar',
+      component: Calendar
+    },
+    {
+      path: '/task/calendar/week',
+      name: 'Week',
+      component: Week
     }
   ]
 })

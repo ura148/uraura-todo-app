@@ -26,8 +26,10 @@
     </ul>
 
 
-    <!-- todoの一覧表示 -->
+    <!-- listの一覧表示 -->
     <p>{{ taskNumber + "個のタスク" }}</p>
+    <router-link to="/task/calendar">calendar</router-link>
+    <router-link to="/task/calendar/week">week</router-link>
     <!-- <button type="button" v-on:click="getsubtododata()">該当データ数</button> -->
 
     <div v-for="(taskCategory, key) in filteredTodos" :key="taskCategory.id">

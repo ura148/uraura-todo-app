@@ -37,7 +37,7 @@ export default {
         .then(user => {
           // ログインが成功した場合にメインページに遷移させる
           alert("success : " + user.user.email);
-          this.$router.push("/");
+          this.$router.push("/task");
         })
         .catch(error => {
           // ログインに失敗した場合
@@ -51,7 +51,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(user => {
-          this.$router.push("/");
+          this.$router.push("/task");
         }).catch(
           error => {
             alert(error.message)
