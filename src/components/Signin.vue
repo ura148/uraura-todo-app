@@ -51,6 +51,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(user => {
+          // 削除する可能性あり
           alert("success : " + user.user.email);
           this.$router.push("/task");
         }).catch(
