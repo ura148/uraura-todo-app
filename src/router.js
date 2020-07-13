@@ -11,7 +11,7 @@ import firebase from 'firebase'
 Vue.use(Router)
 
 let router =  new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '*',
@@ -38,23 +38,25 @@ let router =  new Router({
       name: 'Calendar',
       component: Calendar
     }
-
   ]
 })
 
-// ログインが完了していない場合にサインインページの飛ばす
-router.beforeEach((to, from, next)=>{
-  // let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      next()
-    } else {
-      next({
-        path: '/signin',
-        query: {redirect: to.fullPath}
-      })
-    }
-  });
+router.beforeEach((to, from, next) => {
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  if (requiresAuth) {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        next()
+      } else {
+        next({
+          path: '/signin',
+          query: { redirect: to.fullPath }
+        })
+      }
+    })
+  } else {
+    next()
+  }
 })
 
 export default router
