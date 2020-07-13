@@ -1,7 +1,7 @@
+import firebase from 'firebase'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import firebase from 'firebase'
 
 Vue.use(VCalendar)
 import VCalendar from 'v-calendar'
@@ -20,6 +20,7 @@ Vue.config.productionTip = false
     appId: "1:829377406062:web:563fe9e5c476dac3d1327f"
   };
   firebase.initializeApp(config);
+  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
 
 
 new Vue({
