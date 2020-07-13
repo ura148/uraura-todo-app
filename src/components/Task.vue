@@ -4,7 +4,9 @@
       <h1>CategoList</h1>
     </header>
 
-    <!-- Category filter radio button -->
+    <button type="button" v-on:click="signOut()">Sign out</button>
+
+    <!-- Category filter button -->
     <div class="tabs">
       <button v-on:click="activetab=0" v-bind:class="[ activetab === 0 ? 'active' : '' ]" class="button-category">All</button>
       <button v-on:click="activetab=1" v-bind:class="[ activetab === 1 ? 'active' : '' ]" class="button-category">Recruit</button>
@@ -179,7 +181,7 @@
     <div v-show="show" class="todomake">
       <!-- 初期はVーmodelで"newTodoName"を入れているが空白、故にタスク作った後に空白にしないとミスが起こる -->
       <div class="inputtodomake">
-        <input type="text" v-model="fixListName">
+        <input type="text" v-model="newTodoName">
         <select v-model="selected">
           <option v-for="option in options" v-bind:value="option.value" :key="option.id">
             {{ option.text }}
@@ -293,6 +295,11 @@ export default {
     }
   },
   methods: {
+    signOut: function () {
+      firebase.auth().signOut().then(() => {
+        this.$router.push('/signin')
+      })
+    },
     createList: function() {
       if (this.newTodoName == "") { return; }
       if (this.selected == ""){return; }
