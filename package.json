@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "firebase": "^7.15.5",
+    "font-awesome": "^4.7.0",
     "moment": "^2.27.0",
     "v-calendar": "^1.0.8",
     "vue": "^2.6.11",

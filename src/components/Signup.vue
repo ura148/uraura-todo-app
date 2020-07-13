@@ -33,10 +33,11 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(user => {alert("Create account: " + user.user.email);})
+        // .then(user => {alert("Create account: " + user.user.email);})
         .then(user => {
           // 成功時
           alert("Create account: " + user.user.email);
+          this.$router.push("/signin");
         })
         .catch(error => {
           // 失敗時
