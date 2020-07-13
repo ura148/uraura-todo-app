@@ -151,6 +151,7 @@
   }
 
   #app {
+    padding: 50px 0 100px;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -177,5 +178,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.button-round {
+  position: fixed;
+  z-index: 10;
+  width: 56px;
+  height: 56px;
+  border-radius: 56px;
+}
+
+.button-round__left {
+  left: 18px;
+  bottom: 22px;
+  background-color: #719CFC;
+  color: #fff;
+}
+
+.button-round__right {
+  right: 18px;
+  bottom: 22px;
+  background-color: #719CFC;
+  color: #fff;
 }
 </style>

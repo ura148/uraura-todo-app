@@ -130,6 +130,12 @@
         </template>
       </div>
     </div>
+
+    <router-link to="/">
+      <button type="button" name="makelist" class="button-round button-round__right">
+        <span class="fa fa-check-square"></span>
+      </button>
+    </router-link>
   </div>
 </template>
 
@@ -140,6 +146,7 @@ export default {
   name: 'calendar',
   data() {
     return {
+      show: false,
       activetab: 0,
       dayCount: 0,
       weekCount: 0,
