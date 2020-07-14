@@ -142,7 +142,6 @@
   body {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    color: #ffffff;
     font-family: '','a-otf-ryumin-pr6n', sans-serif;
     font-size: 1.6rem;
     -webkit-font-smoothing: antialiased;
@@ -151,19 +150,19 @@
   }
 
   #app {
-    padding: 50px 0 100px;
+    /* padding: 50px 0 100px; */
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    font-family: '','a-otf-ryumin-pr6n', sans-serif;
+    font-size: 1.6rem;
   }
 
 .card {
-  padding: 16px;
-  margin: 16px;
-  background-color: #c8d2e3;
+  padding-top: 8px;
+  width: 100%;
   text-align: left;
 }
 
@@ -171,13 +170,6 @@
   padding: 12px;
   margin: 16px;
   background-color: #a6b6d5;
-}
-
-.todo {
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .button-round {
