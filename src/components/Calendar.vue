@@ -1,99 +1,56 @@
 <template>
   <div>
-    <header>
-      <h1>CategoList</h1>
-    </header>
-
-    <!-- Category filter radio button -->
-    <div class="tabs">
-      <button v-on:click="activetab=0" v-bind:class="[ activetab === 0 ? 'active' : '' ]" class="button-category">All</button>
-      <button v-on:click="activetab=1" v-bind:class="[ activetab === 1 ? 'active' : '' ]" class="button-category">day</button>
-      <button v-on:click="activetab=2" v-bind:class="[ activetab === 2 ? 'active' : '' ]" class="button-category">week</button>
-    </div>
-
-    <div class="content">
-      <div v-show="activetab === 0" class="tabcontent">
-        <ul>
-          <li><button class="btn" type="submit" v-on:click="showTodoType = 'all'">すべて</button></li>
-          <li><button class="btn" type="submit" v-on:click="showTodoType = 'active'">未完タスク一覧</button></li>
-          <li><button class="btn" type="submit" v-on:click="showTodoType = 'complete'">完了タスク一覧</button></li>
-        </ul>
-
-        <router-link to="/">task</router-link>
-
-        <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="card">
-          <p>{{ key }}</p>
-          <div v-for="(list, subkey) in taskCategory" :key="list.id">
-            <template v-if="list.havechildren != 0">
-              <ul class="subcard">
-                  {{ list.name + "リスト"}}
-                <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
-                  <div v-if="subtodo.todoStatus == true" class="todo">
-                    <input type="checkbox" v-model="subtodo.isComplete">
-                    <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)">{{subtodo.subName}}</label>
-                    {{subtodo.subDate}}
-                    <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)">削除</button>
-                  </div>
-                </li>
-                <div>
-                  <input type="text" v-model="newSubTodoName">
-                  <input type="date" v-model="subDeadline">
-                  <button type="button" v-on:click="createSubTodo(list, subkey)">サブタスク作成</button>
-                </div>
-                <button type="submit" v-on:click="deleteLists(key)">削除</button>
-              </ul>
-            </template>
-          </div>
-        </div>
+    <Header/>
+    <main class="main">
+      <!-- Category filter radio button -->
+      <div class="tabs">
+        <button v-on:click="activetab=0" v-bind:class="[ activetab === 0 ? 'tab-box__active' : '' ]" class="tab-box">All</button>
+        <button v-on:click="activetab=1" v-bind:class="[ activetab === 1 ? 'tab-box__active' : '' ]" class="tab-box">day</button>
+        <button v-on:click="activetab=2" v-bind:class="[ activetab === 2 ? 'tab-box__active' : '' ]" class="tab-box">week</button>
       </div>
-      <div v-show="activetab === 1" class="tabcontent">
-        <div v-if="activetab === 1" class="">
-          <button type="button" v-on:click="dayCount--">◀︎</button>
-          <span>{{ getTodayDate() }}</span>
-          <button type="button" v-on:click="dayCount++">▶︎</button>
-        </div>
 
+      <div>
+        <div v-show="activetab === 0" class="tabcontent">
+          <ul>
+            <li><button class="btn" type="submit" v-on:click="showTodoType = 'all'">すべて</button></li>
+            <li><button class="btn" type="submit" v-on:click="showTodoType = 'active'">未完タスク一覧</button></li>
+            <li><button class="btn" type="submit" v-on:click="showTodoType = 'complete'">完了タスク一覧</button></li>
+          </ul>
 
-        <ul>
-          <li><button class="btn" type="submit" v-on:click="showTodoType = 'all'">すべて</button></li>
-          <li><button class="btn" type="submit" v-on:click="showTodoType = 'active'">未完タスク一覧</button></li>
-          <li><button class="btn" type="submit" v-on:click="showTodoType = 'complete'">完了タスク一覧</button></li>
-        </ul>
+          <router-link to="/">task</router-link>
 
-        <router-link to="/">task</router-link>
-
-        <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="card">
-          <p>{{ key }}</p>
-          <div v-for="(list, subkey) in taskCategory" :key="list.id">
-            <template v-if="list.havechildren != 0">
-              <ul class="subcard">
-                  {{ list.name + "リスト"}}
-                <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
-                  <div v-if="todayDate == subtodo.subDate && subtodo.todoStatus == true" class="todo">
-                    <input type="checkbox" v-model="subtodo.isComplete">
-                    <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)">{{subtodo.subName}}</label>
-                    {{subtodo.subDate}}
-                    <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)">削除</button>
+          <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="card">
+            <p>{{ key }}</p>
+            <div v-for="(list, subkey) in taskCategory" :key="list.id">
+              <template v-if="list.havechildren != 0">
+                <ul class="subcard">
+                    {{ list.name + "リスト"}}
+                  <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
+                    <div v-if="subtodo.todoStatus == true" class="todo">
+                      <input type="checkbox" v-model="subtodo.isComplete">
+                      <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)">{{subtodo.subName}}</label>
+                      {{subtodo.subDate}}
+                      <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)">削除</button>
+                    </div>
+                  </li>
+                  <div>
+                    <input type="text" v-model="newTodoName">
+                    <input type="date" v-model="subDeadline">
+                    <button type="button" v-on:click="createTodo(list, subkey)">サブタスク作成</button>
                   </div>
-                </li>
-                <div>
-                  <input type="text" v-model="newSubTodoName">
-                  <input type="date" v-model="subDeadline">
-                  <button type="button" v-on:click="createSubTodo(list, subkey)">サブタスク作成</button>
-                </div>
-                <button type="submit" v-on:click="deleteLists(key)">削除</button>
-              </ul>
-            </template>
+                  <button type="submit" v-on:click="deleteLists(key)">削除</button>
+                </ul>
+              </template>
+            </div>
           </div>
         </div>
-      </div>
-      <div v-show="activetab === 2" class="tabcontent">
-        <template >
-          <div v-if="activetab === 2" class="">
-            <button type="button" v-on:click="weekCount--">◀︎</button>
-            <span>{{ getWeekDate() }}</span>
-            <button type="button" v-on:click="weekCount++">▶︎</button>
+        <div v-show="activetab === 1" class="tabcontent">
+          <div v-if="activetab === 1" class="">
+            <button type="button" v-on:click="dayCount--">◀︎</button>
+            <span>{{ getTodayDate() }}</span>
+            <button type="button" v-on:click="dayCount++">▶︎</button>
           </div>
+
 
           <ul>
             <li><button class="btn" type="submit" v-on:click="showTodoType = 'all'">すべて</button></li>
@@ -110,7 +67,7 @@
                 <ul class="subcard">
                     {{ list.name + "リスト"}}
                   <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
-                    <div v-if="startDate <= subtodo.subDate && subtodo.subDate <= endDate && subtodo.todoStatus == true" class="todo">
+                    <div v-if="todayDate == subtodo.subDate && subtodo.todoStatus == true" class="todo">
                       <input type="checkbox" v-model="subtodo.isComplete">
                       <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)">{{subtodo.subName}}</label>
                       {{subtodo.subDate}}
@@ -118,28 +75,71 @@
                     </div>
                   </li>
                   <div>
-                    <input type="text" v-model="newSubTodoName">
+                    <input type="text" v-model="newTodoName">
                     <input type="date" v-model="subDeadline">
-                    <button type="button" v-on:click="createSubTodo(list, subkey)">サブタスク作成</button>
+                    <button type="button" v-on:click="createTodo(list, subkey)">サブタスク作成</button>
                   </div>
                   <button type="submit" v-on:click="deleteLists(key)">削除</button>
                 </ul>
               </template>
             </div>
           </div>
-        </template>
-      </div>
-    </div>
+        </div>
+        <div v-show="activetab === 2" class="tabcontent">
+          <template >
+            <div v-if="activetab === 2" class="">
+              <button type="button" v-on:click="weekCount--">◀︎</button>
+              <span>{{ getWeekDate() }}</span>
+              <button type="button" v-on:click="weekCount++">▶︎</button>
+            </div>
 
-    <router-link to="/">
-      <button type="button" name="makelist" class="button-round button-round__right">
-        <span class="fa fa-check-square"></span>
-      </button>
-    </router-link>
+            <ul>
+              <li><button class="btn" type="submit" v-on:click="showTodoType = 'all'">すべて</button></li>
+              <li><button class="btn" type="submit" v-on:click="showTodoType = 'active'">未完タスク一覧</button></li>
+              <li><button class="btn" type="submit" v-on:click="showTodoType = 'complete'">完了タスク一覧</button></li>
+            </ul>
+
+            <router-link to="/">task</router-link>
+
+            <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="card">
+              <p>{{ key }}</p>
+              <div v-for="(list, subkey) in taskCategory" :key="list.id">
+                <template v-if="list.havechildren != 0">
+                  <ul class="subcard">
+                      {{ list.name + "リスト"}}
+                    <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
+                      <div v-if="startDate <= subtodo.subDate && subtodo.subDate <= endDate && subtodo.todoStatus == true" class="todo">
+                        <input type="checkbox" v-model="subtodo.isComplete">
+                        <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)">{{subtodo.subName}}</label>
+                        {{subtodo.subDate}}
+                        <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)">削除</button>
+                      </div>
+                    </li>
+                    <div>
+                      <input type="text" v-model="newTodoName">
+                      <input type="date" v-model="subDeadline">
+                      <button type="button" v-on:click="createTodo(list, subkey)">サブタスク作成</button>
+                    </div>
+                    <button type="submit" v-on:click="deleteLists(key)">削除</button>
+                  </ul>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <router-link to="/">
+        <button type="button" name="makelist" class="button-round button-round__right">
+          <span class="fa fa-check-square"></span>
+        </button>
+      </router-link>
+    </main>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header.vue';
 import firebase from "firebase";
 
 export default {
@@ -156,8 +156,8 @@ export default {
       todayDate:'',
       database: null,
       todosRef: null,
+      newlistName: "",
       newTodoName: "",
-      newSubTodoName: "",
       deadline:"",
       subDeadline: "",
       showTodoType: "all",
@@ -169,6 +169,9 @@ export default {
       ],
       todos: []
     }
+  },
+  components: {
+    Header
   },
   created: function() {
     this.db = firebase.database();
@@ -226,32 +229,32 @@ export default {
 
   methods: {
     // ToDo作成
-    createSubTodo: function(list, subkey) {
+    createTodo: function(list, subkey) {
       console.log(list.category);
-      if (this.newSubTodoName == "") { return; }
+      if (this.newTodoName == "") { return; }
       if (list.category == 'private') {
         this.todosRef.child(list.category).child(subkey).child("/subTasks").push({
-          subName: this.newSubTodoName,
+          subName: this.newTodoName,
           isComplete: false,
           subDate: this.subDeadline,
           todoStatus: false,
         })
       } else if (list.category == 'recruit') {
         this.todosRef.child(list.category).child(subkey).child("/subTasks").push({
-          subName: this.newSubTodoName,
+          subName: this.newTodoName,
           isComplete: false,
           subDate: this.subDeadline,
           todoStatus: false,
         })
       } else {
         this.todosRef.child(list.category).child(subkey).child("/subTasks").push({
-          subName: this.newSubTodoName,
+          subName: this.newTodoName,
           isComplete: false,
           subDate: this.subDeadline,
           todoStatus: false,
         })
       }
-      this.newSubTodoName = "";
+      this.newTodoName = "";
     },
     updateIsCompleteTodo: function(subkey, subtodo, list, subsubkey) {
       subtodo.isComplete = !subtodo.isComplete;
@@ -343,5 +346,8 @@ export default {
 }
 .cell-content-line {
   border-bottom: 1px solid #efefef;
+}
+.main {
+  margin-top: 48px;
 }
 </style>
