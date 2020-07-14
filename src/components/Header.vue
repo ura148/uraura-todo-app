@@ -4,7 +4,7 @@
       <h1>
         <img src="../assets/title.png" class="header-title">
       </h1>
-      <!-- <button type="button" v-on:click="signOut()">Sign out</button> -->
+      <button type="button" v-on:click="signOut()" class="header-signout">Sign out</button>
     </div>
 
   </header>
@@ -37,12 +37,18 @@ export default {
   .header-container {
     align-items: center;
   }
-
   .header-title {
     width: 83px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .header-signout {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+    color: #fafafa;
   }
 </style>

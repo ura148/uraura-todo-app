@@ -8,9 +8,7 @@
         <li><button v-on:click="activetab=0" v-bind:class="[ activetab === 0 ? 'tab-box__active' : '' ]" class="tab-box">All</button></li>
         <li><button v-on:click="activetab=3" v-bind:class="[ activetab === 3 ? 'tab-box__active' : '' ]" class="tab-box">Bucket List</button></li>
         <li><button v-on:click="activetab=2" v-bind:class="[ activetab === 2 ? 'tab-box__active' : '' ]" class="tab-box">Private</button></li>
-
         <li><button v-on:click="activetab=1" v-bind:class="[ activetab === 1 ? 'tab-box__active' : '' ]" class="tab-box">Recruit</button></li>
-
       </ul>
 
       <div class="container">
@@ -813,8 +811,4 @@ export default {
       .popup-btn__left {
         margin-right: 32px;
       }
-
-
-
-
 </style>
