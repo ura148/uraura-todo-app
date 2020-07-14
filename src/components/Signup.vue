@@ -1,16 +1,28 @@
 <template>
-  <div class="signup">
-    <h2>サインアップ</h2>
-    <!-- 登録フォーム -->
-    <input type="email" placeholder="email" v-model="email">
-    <input type="password" placeholder="password" v-model="password">
-    <button @click="signUp">登録</button>
+  <div class="popup">
+    <div class="popup-content">
+      <div class="popup-auther">
+        <h1><img src="../assets/top-title.png" class="popup-title"></h1>
+        <p class="popup-subtitle">サインアップ ページ</p>
 
-    <!-- サインインへの遷移ボタン -->
-    <p>
-      アカウントをすでにお持ちの方
-      <router-link to="/signin">sign in now</router-link>
-    </p>
+        <p class="popup-item">新規メールアドレス</p>
+        <input type="email" placeholder="email" v-model="email" class="popup-input">
+
+        <p class="popup-item">新規パスワード</p>
+        <input type="password" placeholder="password" v-model="password" class="popup-input">
+
+        <button @click="signUp" class="popup-btn popup-btn__positive popup-btn__submit authuser-submit">登録</button>
+
+      </div>
+      <!-- 登録フォーム -->
+      <div class="popup-otherway">
+        <!-- サインインへの遷移ボタン -->
+        <p class="authuser-otherway-txt">アカウントをお持ちの方はこちら<br><router-link to="/signin" class="authuser-otherway-link">サインページ</router-link></p>
+
+      </div>
+
+
+    </div>
   </div>
 </template>
 
@@ -49,5 +61,11 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+.popup {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #719CFC, #394E7E);
+}
 </style>

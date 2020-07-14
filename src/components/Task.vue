@@ -35,10 +35,10 @@
                 <!-- list再編集 -->
                 <div v-show="list.fixListShow" class="popup">
                   <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
+                    <p class="popup-item">List name</p>
                     <input type="text" v-model="list.name" class=" card-todo-input">
 
-                    <p class="popup-fix-item">Category</p>
+                    <p class="popup-item">Category</p>
                     <select v-model="selected" class="card-todo-input card-todo-input__choose">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
@@ -74,10 +74,10 @@
                     <!-- todo再編集 -->
                     <div v-show="subtodo.fixTodoShow" class="popup">
                       <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
+                        <p class="popup-item">Todo name</p>
                         <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
+                        <p class="popup-item">Dead line</p>
                         <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
 
                         <div class="popup-btn-box">
@@ -121,10 +121,10 @@
                 <!-- list再編集 -->
                 <div v-show="list.fixListShow" class="popup">
                   <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
+                    <p class="popup-item">List name</p>
                     <input type="text" v-model="list.name" class=" card-todo-input">
 
-                    <p class="popup-fix-item">Category</p>
+                    <p class="popup-item">Category</p>
                     <select v-model="selected" class="card-todo-input card-todo-input__choose">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
@@ -160,10 +160,10 @@
                     <!-- todo再編集 -->
                     <div v-show="subtodo.fixTodoShow" class="popup">
                       <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
+                        <p class="popup-item">Todo name</p>
                         <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
+                        <p class="popup-item">Dead line</p>
                         <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
 
                         <div class="popup-btn-box">
@@ -207,10 +207,10 @@
                 <!-- list再編集 -->
                 <div v-show="list.fixListShow" class="popup">
                   <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
+                    <p class="popup-item">List name</p>
                     <input type="text" v-model="list.name" class=" card-todo-input">
 
-                    <p class="popup-fix-item">Category</p>
+                    <p class="popup-item">Category</p>
                     <select v-model="selected" class="card-todo-input card-todo-input__choose">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
@@ -246,10 +246,10 @@
                     <!-- todo再編集 -->
                     <div v-show="subtodo.fixTodoShow" class="popup">
                       <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
+                        <p class="popup-item">Todo name</p>
                         <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
+                        <p class="popup-item">Dead line</p>
                         <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
 
                         <div class="popup-btn-box">
@@ -293,10 +293,10 @@
                 <!-- list再編集 -->
                 <div v-show="list.fixListShow" class="popup">
                   <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
+                    <p class="popup-item">List name</p>
                     <input type="text" v-model="list.name" class=" card-todo-input">
 
-                    <p class="popup-fix-item">Category</p>
+                    <p class="popup-item">Category</p>
                     <select v-model="selected" class="card-todo-input card-todo-input__choose">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
@@ -332,10 +332,10 @@
                     <!-- todo再編集 -->
                     <div v-show="subtodo.fixTodoShow" class="popup">
                       <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
+                        <p class="popup-item">Todo name</p>
                         <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
+                        <p class="popup-item">Dead line</p>
                         <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
 
                         <div class="popup-btn-box">
@@ -707,6 +707,7 @@ export default {
       margin-bottom: 0;
     }
     .card-todo-input {
+      font-size: 1.6rem;
       height: 20px;
       border: none;
       border-bottom: 1px solid #707070;
@@ -782,10 +783,10 @@ export default {
       transform: translate(-50%, -50%);
       z-index: 15;
     }
-    .popup-fix-item {
+    .popup-item {
       margin: 16px 0;
     }
-    .popup-fix-item:first-of-type {
+    .popup-item:first-of-type {
       margin-top: 0;
     }
     .popup-btn-box {
@@ -807,6 +808,9 @@ export default {
         background-color: #719cfc;
         font-size: 1.4rem;
         font-weight: bold;
+      }
+      .popup-btn__submit {
+        width: calc(100% / 1.618);
       }
       .popup-btn__left {
         margin-right: 32px;
