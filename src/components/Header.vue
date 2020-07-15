@@ -15,10 +15,10 @@
       <div v-show="show" class="popup">
         <div class="popup-fix__todo">
           <p class="popup-item">List name</p>
-          <input type="text" v-model="newlistName" class="card-todo-input">
+          <input type="text" v-model="newlistName" class="popup-input">
 
           <p class="popup-item">Category</p>
-          <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+          <select v-model="selectCategory" class="popup-input">
             <option v-for="option in options" v-bind:value="option.value" :key="option.id">
               {{ option.text }}
             </option>
@@ -30,7 +30,6 @@
           </div>
         </div>
       </div>
-
 
       <router-link to="/calendar" v-if="windowW >= 1024">
         <button type="button" v-if="windowW >= 1024 && $route.path == '/'" class="header-btn header-btn__changemode">

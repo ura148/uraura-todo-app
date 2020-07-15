@@ -95,7 +95,6 @@ export default {
       border-bottom: 1px solid #fff;
       font-weight: bold;
     }
-
     .popup-content {
       position: absolute;
       top: 50%;
