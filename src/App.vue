@@ -5,14 +5,7 @@
 </template>
 
 <style>
-/* #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 /* reset css */
   html, body, div, span, object, iframe,
@@ -135,29 +128,16 @@
   }
 
 /* style.css */
-  html{
-    font-size:62.5%;/*16px×62.5％＝10px*/
-  }
-
-  body {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    font-family: '','a-otf-ryumin-pr6n', sans-serif;
-    font-size: 1.6rem;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: antialiased;
-    letter-spacing: 0.05rem;
-  }
-
-  #app {
-    /* padding: 50px 0 100px; */
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-    font-family: '','a-otf-ryumin-pr6n', sans-serif;
-    font-size: 1.6rem;
-  }
+html{
+  font-size:62.5%;/*16px×62.5％＝10px*/
+}
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.05rem;
+}
 
 .card {
   padding-top: 8px;
@@ -177,19 +157,17 @@
   width: 56px;
   height: 56px;
   border-radius: 56px;
+  background-color: #719CFC;
+  color: #fff;
 }
 
 .button-round__left {
   left: 18px;
   bottom: 22px;
-  background-color: #719CFC;
-  color: #fff;
 }
 
 .button-round__right {
   right: 18px;
   bottom: 22px;
-  background-color: #719CFC;
-  color: #fff;
 }
 </style>

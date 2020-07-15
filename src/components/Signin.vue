@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import firebase from "firebase"; // firebaseのインポート
+import firebase from "firebase";
 
 export default {
   name: "Signin",
@@ -35,7 +35,6 @@ export default {
     };
   },
   methods: {
-    // signinボタンを押したときに実行されるfunction
     signIn: function() {
       firebase
         .auth()
@@ -76,7 +75,6 @@ export default {
 .popup {
   position: relative;
   width: 100vw;
-  height: 100vh;
   background: linear-gradient(to bottom, #719CFC, #394E7E);
 }
 </style>

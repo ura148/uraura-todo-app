@@ -2,23 +2,24 @@
   <div>
     <Header/>
     <main class="main">
-      <!-- Category filter radio button -->
-      <div class="tab">
-        <button v-on:click="activetab=0" v-bind:class="[ activetab === 0 ? 'tab-box__active' : '' ]" class="tab-box">All</button>
-        <button v-on:click="activetab=1" v-bind:class="[ activetab === 1 ? 'tab-box__active' : '' ]" class="tab-box">day</button>
-        <button v-on:click="activetab=2" v-bind:class="[ activetab === 2 ? 'tab-box__active' : '' ]" class="tab-box">week</button>
+      <div class="showchange">
+      <!-- Category filter -->
+        <div class="tab">
+          <button v-on:click="activetab=0" v-bind:class="[ activetab === 0 ? 'tab-box__active' : '' ]" class="tab-box">All</button>
+          <button v-on:click="activetab=1" v-bind:class="[ activetab === 1 ? 'tab-box__active' : '' ]" class="tab-box">day</button>
+          <button v-on:click="activetab=2" v-bind:class="[ activetab === 2 ? 'tab-box__active' : '' ]" class="tab-box">week</button>
+        </div>
+
+        <ul class="filter">
+          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">Active&Complete</button></li>
+          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'active'">Active</button></li>
+          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'complete'">Complete</button></li>
+        </ul>
       </div>
 
       <div class="container">
-        <div v-show="activetab === 0" class="tabcontent">
-          <ul class="filter">
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">Active&Complete</button></li>
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'active'">Active</button></li>
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'complete'">Complete</button></li>
-          </ul>
-          <!-- listの一覧表示 -->
-
-          <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id">
+        <div v-if="activetab === 0" class="category">
+          <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="category-box">
             <div class="card">
               <p class="card-category-name">{{ key }}</p>
               <div v-for="(list, subkey) in taskCategory" :key="list.id" class="card-list">
@@ -26,18 +27,18 @@
                 <!-- list名＋編集btn -->
                 <div class="card-namebox">
                   <p class="card-name">{{list.name}}</p>
-                  <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
-                  <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                  <button type="button" @click="list.fixListShow=!list.fixListShow" class="btn btn-fix"><span class="fa fa-pencil btn-fix"></span></button>
+                  <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn btn-delete"><span class="fa fa-trash"></span></button>
                 </div>
 
                 <!-- list再編集 -->
                 <div v-show="list.fixListShow" class="popup">
                   <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
+                    <p class="popup-item">List name</p>
                     <input type="text" v-model="list.name" class=" card-todo-input">
 
-                    <p class="popup-fix-item">Category</p>
-                    <select v-model="selected" class="card-todo-input card-todo-input__choose">
+                    <p class="popup-item">Category</p>
+                    <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
                       </option>
@@ -63,19 +64,18 @@
                       <!-- Todo編集btnと削除btn -->
                       <div>
                         <!-- todo編集btn -->
-                        <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
-
-                        <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                        <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="btn btn-fix"><span class="fa fa-pencil btn-fix"></span></button>
+                        <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn btn-delete"><span class="fa fa-trash"></span></button>
                       </div>
                     </div>
 
                     <!-- todo再編集 -->
                     <div v-show="subtodo.fixTodoShow" class="popup">
                       <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
+                        <p class="popup-item">Todo name</p>
                         <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
+                        <p class="popup-item">Dead line</p>
                         <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
 
                         <div class="popup-btn-box">
@@ -93,199 +93,219 @@
                   <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
                 </div>
               </div>
+              <button  v-if="windowW >= 1024" type="button" name="makelist" @click="show=!show" class="btn-makelist" v-bind:class="{actives: show}">
+                <span>リスト追加</span>
+              </button>
+
             </div>
           </div>
         </div>
-        <div v-show="activetab === 1" class="tabcontent">
-          <div v-if="activetab === 1" class="">
-            <button type="button" v-on:click="dayCount--">◀︎</button>
-            <span>{{ getTodayDate() }}</span>
-            <button type="button" v-on:click="dayCount++">▶︎</button>
+        <div v-if="activetab === 1">
+          <div class="daydate">
+            <button type="button" v-on:click="dayCount--" class="daydate-arrow">◀︎</button>
+            <span class="daydate-txt">{{ getTodayDate() }}</span>
+            <button type="button" v-on:click="dayCount++" class="daydate-arrow">▶︎</button>
           </div>
-
-          <ul class="filter">
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">Active&Complete</button></li>
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'active'">Active</button></li>
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'complete'">Complete</button></li>
-          </ul>
           <!-- listの一覧表示 -->
-
-          <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id">
-            <div class="card">
-              <p class="card-category-name">{{ key }}</p>
-              <div v-for="(list, subkey) in taskCategory" :key="list.id" class="card-list">
-              <template v-if="list.havechildren != 0">
-                <!-- list名＋編集btn -->
-                <div class="card-namebox">
-                  <p class="card-name">{{list.name}}</p>
-                  <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
-                  <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
-                </div>
-
-                <!-- list再編集 -->
-                <div v-show="list.fixListShow" class="popup">
-                  <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
-                    <input type="text" v-model="list.name" class=" card-todo-input">
-
-                    <p class="popup-fix-item">Category</p>
-                    <select v-model="selected" class="card-todo-input card-todo-input__choose">
-                      <option v-for="option in options" v-bind:value="option.value" :key="option.id">
-                        {{ option.text }}
-                      </option>
-                    </select>
-
-                    <div class="popup-btn-box">
-                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
-                      <button type="submit" v-on:click="fixList(list, subkey)" class="popup-btn popup-btn__positive">Done</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- todoを表示 -->
-                <ul>
-                  <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
-                    <div v-if="todayDate == subtodo.subDate && subtodo.todoStatus == true" class="card-item">
-                      <input type="checkbox" v-model="subtodo.isComplete">
-                      <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)" class="card-item-name">
-                        <span>{{subtodo.subName}}</span>
-                        <span>{{changeShowDate(subtodo)}}</span>
-                      </label>
-
-                      <!-- Todo編集btnと削除btn -->
-                      <div>
-                        <!-- todo編集btn -->
-                        <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
-
-                        <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
-                      </div>
+          <div class="category">
+            <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="category-box">
+              <div class="card">
+                <p class="card-category-name">{{ key }}</p>
+                <ul v-for="(list, subkey) in taskCategory" :key="list.id">
+                <template v-if="list.havechildren != 0">
+                  <li  class="card-list">
+                    <!-- list名＋編集btn -->
+                    <div class="card-namebox">
+                      <p class="card-name">{{list.name}}</p>
+                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
+                      <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
                     </div>
 
-                    <!-- todo再編集 -->
-                    <div v-show="subtodo.fixTodoShow" class="popup">
-                      <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
-                        <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+                    <!-- list再編集 -->
+                    <div v-show="list.fixListShow" class="popup">
+                      <div  class="popup-fix__todo">
+                        <p class="popup-fix-item">List name</p>
+                        <input type="text" v-model="list.name" class=" card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
-                        <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                        <p class="popup-fix-item">Category</p>
+                        <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                          <option v-for="option in options" v-bind:value="option.value" :key="option.id">
+                            {{ option.text }}
+                          </option>
+                        </select>
 
                         <div class="popup-btn-box">
-                          <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
-                          <button type="submit" v-on:click="addDeadlineFixName(list, subtodo, subkey, subsubkey); subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__positive">Done</button>
+                          <button type="button" @click="list.fixListShow=!list.fixListShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
+                          <button type="submit" v-on:click="fixList(list, subkey)" class="popup-btn popup-btn__positive">Done</button>
                         </div>
                       </div>
                     </div>
 
-                  </li>
-                </ul>
+                    <!-- todoを表示 -->
+                    <ul>
+                      <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
+                        <div v-if="todayDate == subtodo.subDate && subtodo.todoStatus == true" class="card-item">
+                          <input type="checkbox" v-model="subtodo.isComplete">
+                          <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)" class="card-item-name">
+                            <span>{{subtodo.subName}}</span>
+                            <span>{{changeShowDate(subtodo)}}</span>
+                          </label>
 
-                <div>
-                  <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
-                  <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
-                </div>
-                </template>
+                          <!-- Todo編集btnと削除btn -->
+                          <div>
+                            <!-- todo編集btn -->
+                            <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
+
+                            <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                          </div>
+                        </div>
+
+                        <!-- todo再編集 -->
+                        <div v-show="subtodo.fixTodoShow" class="popup">
+                          <div class="popup-fix__todo">
+                            <p class="popup-fix-item">Todo name</p>
+                            <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+
+                            <p class="popup-fix-item">Dead line</p>
+                            <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+
+                            <div class="popup-btn-box">
+                              <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
+                              <button type="submit" v-on:click="addDeadlineFixName(list, subtodo, subkey, subsubkey); subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__positive">Done</button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </li>
+                    </ul>
+
+                    <div>
+                      <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
+                      <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
+                    </div>
+                  </li>
+                  </template>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-        <div v-show="activetab === 2" class="tabcontent">
-          <div v-if="activetab === 2" class="">
-            <button type="button" v-on:click="weekCount--">◀︎</button>
-            <span>{{ getWeekDate() }}</span>
-            <button type="button" v-on:click="weekCount++">▶︎</button>
+        <div v-if="activetab === 2">
+          <div class="daydate">
+            <button type="button" v-on:click="weekCount--" class="daydate-arrow">◀︎</button>
+            <span class="daydate-txt">{{ getWeekDate() }}</span>
+            <button type="button" v-on:click="weekCount++" class="daydate-arrow">▶︎</button>
           </div>
-
-          <ul class="filter">
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">Active&Complete</button></li>
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'active'">Active</button></li>
-            <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'complete'">Complete</button></li>
-          </ul>
           <!-- listの一覧表示 -->
-
-          <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id">
-            <div class="card">
-              <p class="card-category-name">{{ key }}</p>
-              <div v-for="(list, subkey) in taskCategory" :key="list.id" class="card-list">
-              <template v-if="list.havechildren != 0">
-                <!-- list名＋編集btn -->
-                <div class="card-namebox">
-                  <p class="card-name">{{list.name}}</p>
-                  <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
-                  <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
-                </div>
-
-                <!-- list再編集 -->
-                <div v-show="list.fixListShow" class="popup">
-                  <div  class="popup-fix__todo">
-                    <p class="popup-fix-item">List name</p>
-                    <input type="text" v-model="list.name" class=" card-todo-input">
-
-                    <p class="popup-fix-item">Category</p>
-                    <select v-model="selected" class="card-todo-input card-todo-input__choose">
-                      <option v-for="option in options" v-bind:value="option.value" :key="option.id">
-                        {{ option.text }}
-                      </option>
-                    </select>
-
-                    <div class="popup-btn-box">
-                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
-                      <button type="submit" v-on:click="fixList(list, subkey)" class="popup-btn popup-btn__positive">Done</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- todoを表示 -->
-                <ul>
-                  <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
-                    <div v-if="startDate <= subtodo.subDate && subtodo.subDate <= endDate && subtodo.todoStatus == true" class="card-item">
-                      <input type="checkbox" v-model="subtodo.isComplete">
-                      <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)" class="card-item-name">
-                        <span>{{subtodo.subName}}</span>
-                        <span>{{changeShowDate(subtodo)}}</span>
-                      </label>
-
-                      <!-- Todo編集btnと削除btn -->
-                      <div>
-                        <!-- todo編集btn -->
-                        <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
-
-                        <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
-                      </div>
+          <div class="category">
+            <div v-for="(taskCategory, key) in filteredList" :key="taskCategory.id" class="category-box">
+              <div class="card">
+                <p class="card-category-name">{{ key }}</p>
+                <ul v-for="(list, subkey) in taskCategory" :key="list.id">
+                <template v-if="list.havechildren != 0">
+                  <li  class="card-list">
+                    <!-- list名＋編集btn -->
+                    <div class="card-namebox">
+                      <p class="card-name">{{list.name}}</p>
+                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
+                      <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
                     </div>
 
-                    <!-- todo再編集 -->
-                    <div v-show="subtodo.fixTodoShow" class="popup">
-                      <div class="popup-fix__todo">
-                        <p class="popup-fix-item">Todo name</p>
-                        <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+                    <!-- list再編集 -->
+                    <div v-show="list.fixListShow" class="popup">
+                      <div  class="popup-fix__todo">
+                        <p class="popup-fix-item">List name</p>
+                        <input type="text" v-model="list.name" class=" card-todo-input">
 
-                        <p class="popup-fix-item">Dead line</p>
-                        <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                        <p class="popup-fix-item">Category</p>
+                        <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                          <option v-for="option in options" v-bind:value="option.value" :key="option.id">
+                            {{ option.text }}
+                          </option>
+                        </select>
 
                         <div class="popup-btn-box">
-                          <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
-                          <button type="submit" v-on:click="addDeadlineFixName(list, subtodo, subkey, subsubkey); subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__positive">Done</button>
+                          <button type="button" @click="list.fixListShow=!list.fixListShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
+                          <button type="submit" v-on:click="fixList(list, subkey)" class="popup-btn popup-btn__positive">Done</button>
                         </div>
                       </div>
                     </div>
 
-                  </li>
-                </ul>
+                    <!-- todoを表示 -->
+                    <ul>
+                      <li v-for="(subtodo, subsubkey) in list.subTasks" :key="subtodo.id">
+                        <div v-if="startDate <= subtodo.subDate && subtodo.subDate <= endDate && subtodo.todoStatus == true" class="card-item">
+                          <input type="checkbox" v-model="subtodo.isComplete">
+                          <label v-on:click="updateIsCompleteTodo(subkey, subtodo, list, subsubkey)" class="card-item-name">
+                            <span>{{subtodo.subName}}</span>
+                            <span>{{changeShowDate(subtodo)}}</span>
+                          </label>
 
-                <div>
-                  <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
-                  <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
-                </div>
+                          <!-- Todo編集btnと削除btn -->
+                          <div>
+                            <!-- todo編集btn -->
+                            <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
+
+                            <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                          </div>
+                        </div>
+
+                        <!-- todo再編集 -->
+                        <div v-show="subtodo.fixTodoShow" class="popup">
+                          <div class="popup-fix__todo">
+                            <p class="popup-fix-item">Todo name</p>
+                            <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+
+                            <p class="popup-fix-item">Dead line</p>
+                            <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+
+                            <div class="popup-btn-box">
+                              <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
+                              <button type="submit" v-on:click="addDeadlineFixName(list, subtodo, subkey, subsubkey); subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__positive">Done</button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </li>
+                    </ul>
+
+                    <div>
+                      <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
+                      <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
+                    </div>
+                  </li>
                 </template>
+              </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <router-link to="/">
-        <button type="button" name="makelist" class="button-round button-round__right">
+      <div v-show="show" class="popup">
+        <!-- 初期はVーmodelで"newlistName"を入れているが空白、故にタスク作った後に空白にしないとミスが起こる -->
+        <div class="popup-fix__todo">
+          <p class="popup-item">List name</p>
+          <input type="text" v-model="newlistName" class="card-todo-input">
+
+          <p class="popup-item">Category</p>
+          <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+            <option v-for="option in options" v-bind:value="option.value" :key="option.id">
+              {{ option.text }}
+            </option>
+          </select>
+
+          <!-- <button type="submit" v-on:click="createList()">タスク作成</button> -->
+          <div class="popup-btn-box">
+            <button type="button" @click="show=!show" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
+            <button type="submit" @click="createList()" class="popup-btn popup-btn__positive">Done</button>
+          </div>
+        </div>
+      </div>
+
+
+      <router-link to="/" v-if="windowW <= 1024">
+        <button type="button" class="button-round button-round__right">
           <span class="fa fa-check-square"></span>
         </button>
       </router-link>
@@ -301,6 +321,8 @@ export default {
   name: 'calendar',
   data() {
     return {
+      windowW: window.innerWidth,
+      windowH: window.innerHeight,
       show: false,
       activetab: 0,
       dayCount: 0,
@@ -316,11 +338,12 @@ export default {
       deadline:"",
       subDeadline: "",
       showTodoType: "all",
-      selected: '',
+      selectCategory: '',
       options: [
+        { text: 'bucket list', value: 'bucket list' },
         { text: 'private', value: 'private' },
         { text: 'recruit', value: 'recruit' },
-        { text: 'bucket list', value: 'bucket list' }
+
       ],
       todos: []
     }
@@ -381,23 +404,42 @@ export default {
       return this.todos;
     }
   },
-
   methods: {
+    handleResize: function() {
+      // resizeのたびにこいつが発火するので、ここでやりたいことをやる
+      this.windowW = window.innerWidth;
+      this.windowH = window.innerHeight;
+    },
+    createList: function() {
+      if (this.newlistName == "") { return; }
+      if (this.selectCategory == ""){return; }
+      else  {
+        this.todosRef.child(this.selectCategory).push({
+          fixListShow: false,
+          havechildren: 0,
+          name: this.newlistName,
+          category: this.selectCategory,
+          achievementRate: 0,
+        })
+      }
+      this.show = false;
+      this.newlistName = "";
+    },
     fixList: function (list, subkey) {
       if (list.name == "") { return; }
-      if (this.selected == ""){return; }
+      if (this.selectCategory == ""){return; }
       else  {
         console.log("修正完了！");
         let fixListName = list.name
         list.name = fixListName;
-        list.category = this.selected;
+        list.category = this.selectCategory;
         let fixed = {};
         fixed[subkey] = list;
         list.fixListShow = false
         this.todosRef.child(list.category).update(fixed)
       }
       this.fixListName = "";
-      this.selected = "";
+      this.selectCategory = "";
     },
     // ToDo作成
     createTodo: function(list, subkey) {
@@ -509,8 +551,8 @@ export default {
       this.fixListName = "";
     },
     // Listを削除
-    deleteLists: function(key) {
-      this.todosRef.child(key).remove();
+    deleteLists: function(list, subkey) {
+      this.todosRef.child(list.category).child(subkey).remove();
     },
     // ToDoを削除
     deleteTodos: function(subkey, list, subsubkey) {
@@ -525,6 +567,12 @@ export default {
       let a = this.setWeekDate();
       return a[0];
     }
+  },
+  mounted: function () {
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('resize', this.handleResize)
   }
 }
 </script>
@@ -533,14 +581,35 @@ export default {
 .tab-box {
   width: 33.3333vw;
 }
-.cell-content {
-  text-align:left;
-  width: 70px;
-  height: 50px;
-  font-size: 50%;
-  /* border: 1px solid #efefef; */
-}
-.cell-content-line {
-  border-bottom: 1px solid #efefef;
+@media screen and (min-width:1024px){
+  .filter {
+    width: calc(100vw - 288px);
+    justify-content: flex-start;
+    left: 288px;
+    transform: none;
+  }
+  .daydate {
+    margin-top: 16px;
+    text-align: center;
+  }
+    .daydate-txt {
+      font-size: 2rem;
+    }
+    .daydate-arrow {
+      font-size: 1.8rem;
+    }
+  .tab-box {
+    width: 33.3333vw;
+  }
+  .cell-content {
+    text-align:left;
+    width: 70px;
+    height: 50px;
+    font-size: 50%;
+    /* border: 1px solid #efefef; */
+  }
+  .cell-content-line {
+    border-bottom: 1px solid #efefef;
+  }
 }
 </style>

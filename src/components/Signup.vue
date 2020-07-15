@@ -65,7 +65,6 @@ export default {
 .popup {
   position: relative;
   width: 100vw;
-  height: 100vh;
   background: linear-gradient(to bottom, #719CFC, #394E7E);
 }
 </style>
