@@ -117,8 +117,8 @@
                     <!-- list名＋編集btn -->
                     <div class="card-namebox">
                       <p class="card-name">{{list.name}}</p>
-                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
-                      <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="btn btn-fix"><span class="fa fa-pencil btn-fix"></span></button>
+                      <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn btn-delete"><span class="fa fa-trash"></span></button>
                     </div>
 
                     <!-- list再編集 -->
@@ -154,9 +154,8 @@
                           <!-- Todo編集btnと削除btn -->
                           <div>
                             <!-- todo編集btn -->
-                            <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
-
-                            <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                            <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="btn btn-fix"><span class="fa fa-pencil btn-fix"></span></button>
+                            <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn btn-delete"><span class="fa fa-trash"></span></button>
                           </div>
                         </div>
 
@@ -207,8 +206,8 @@
                     <!-- list名＋編集btn -->
                     <div class="card-namebox">
                       <p class="card-name">{{list.name}}</p>
-                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="fa fa-pencil btn-fix"></button>
-                      <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                      <button type="button" @click="list.fixListShow=!list.fixListShow" class="btn btn-fix"><span class="fa fa-pencil btn-fix"></span></button>
+                      <button type="submit" v-on:click="deleteLists(list, subkey)" class="btn btn-delete"><span class="fa fa-trash"></span></button>
                     </div>
 
                     <!-- list再編集 -->
@@ -244,9 +243,8 @@
                           <!-- Todo編集btnと削除btn -->
                           <div>
                             <!-- todo編集btn -->
-                            <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="fa fa-pencil btn-fix"></button>
-
-                            <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn-delete"><span class="fa fa-trash"></span></button>
+                            <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="btn btn-fix"><span class="fa fa-pencil btn-fix"></span></button>
+                            <button type="submit" v-on:click="deleteTodos(subkey, list, subsubkey)" class="btn btn-delete"><span class="fa fa-trash"></span></button>
                           </div>
                         </div>
 
