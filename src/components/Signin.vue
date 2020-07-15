@@ -74,7 +74,6 @@ export default {
 <style scoped>
 .popup {
   position: relative;
-  width: 100vw;
   background: linear-gradient(to bottom, #719CFC, #394E7E);
 }
 </style>
@@ -119,13 +118,6 @@ export default {
       border-radius: 8px;
       z-index: 15;
       box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
-    }
-    .popup-input{
-      width: 100%;
-      font-size: 1.6rem;
-      height: 20px;
-      border: none;
-      border-bottom: 1px solid #707070;
     }
     .popup-otherway {
       margin-top: 32px;
