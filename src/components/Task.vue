@@ -907,6 +907,8 @@ input[type="checkbox"]:checked + label:before {
       flex: 0 0 30%;
       background-color: #719CFC;
       border-radius: 8px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
+
     }
     .btn-makelist > span {
       font-size: 1.6rem;
