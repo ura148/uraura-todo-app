@@ -35,10 +35,10 @@
                 <div v-show="list.fixListShow" class="popup">
                   <div  class="popup-fix__todo">
                     <p class="popup-item">List name</p>
-                    <input type="text" v-model="list.name" class=" card-todo-input">
+                    <input type="text" v-model="list.name" class=" popup-input">
 
                     <p class="popup-item">Category</p>
-                    <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                    <select v-model="selectCategory" class="popup-input ">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
                       </option>
@@ -73,10 +73,10 @@
                     <div v-show="subtodo.fixTodoShow" class="popup">
                       <div class="popup-fix__todo">
                         <p class="popup-item">Todo name</p>
-                        <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+                        <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="popup-input">
 
                         <p class="popup-item">Dead line</p>
-                        <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                        <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="popup-input ">
 
                         <div class="popup-btn-box">
                           <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -89,7 +89,7 @@
                 </ul>
 
                 <div>
-                  <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
+                  <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="popup-input">
                   <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
                 </div>
               </div>
@@ -125,10 +125,10 @@
                     <div v-show="list.fixListShow" class="popup">
                       <div  class="popup-fix__todo">
                         <p class="popup-fix-item">List name</p>
-                        <input type="text" v-model="list.name" class=" card-todo-input">
+                        <input type="text" v-model="list.name" class=" popup-input">
 
                         <p class="popup-fix-item">Category</p>
-                        <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                        <select v-model="selectCategory" class="popup-input ">
                           <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                             {{ option.text }}
                           </option>
@@ -163,10 +163,10 @@
                         <div v-show="subtodo.fixTodoShow" class="popup">
                           <div class="popup-fix__todo">
                             <p class="popup-fix-item">Todo name</p>
-                            <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+                            <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="popup-input">
 
                             <p class="popup-fix-item">Dead line</p>
-                            <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                            <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="popup-input ">
 
                             <div class="popup-btn-box">
                               <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -179,7 +179,7 @@
                     </ul>
 
                     <div>
-                      <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
+                      <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="popup-input">
                       <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
                     </div>
                   </li>
@@ -214,10 +214,10 @@
                     <div v-show="list.fixListShow" class="popup">
                       <div  class="popup-fix__todo">
                         <p class="popup-fix-item">List name</p>
-                        <input type="text" v-model="list.name" class=" card-todo-input">
+                        <input type="text" v-model="list.name" class=" popup-input">
 
                         <p class="popup-fix-item">Category</p>
-                        <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                        <select v-model="selectCategory" class="popup-input ">
                           <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                             {{ option.text }}
                           </option>
@@ -252,10 +252,10 @@
                         <div v-show="subtodo.fixTodoShow" class="popup">
                           <div class="popup-fix__todo">
                             <p class="popup-fix-item">Todo name</p>
-                            <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
+                            <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="popup-input">
 
                             <p class="popup-fix-item">Dead line</p>
-                            <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                            <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="popup-input ">
 
                             <div class="popup-btn-box">
                               <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -268,7 +268,7 @@
                     </ul>
 
                     <div>
-                      <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
+                      <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="popup-input">
                       <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
                     </div>
                   </li>
@@ -284,10 +284,10 @@
         <!-- 初期はVーmodelで"newlistName"を入れているが空白、故にタスク作った後に空白にしないとミスが起こる -->
         <div class="popup-fix__todo">
           <p class="popup-item">List name</p>
-          <input type="text" v-model="newlistName" class="card-todo-input">
+          <input type="text" v-model="newlistName" class="popup-input">
 
           <p class="popup-item">Category</p>
-          <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+          <select v-model="selectCategory" class="popup-input ">
             <option v-for="option in options" v-bind:value="option.value" :key="option.id">
               {{ option.text }}
             </option>
@@ -303,7 +303,7 @@
 
 
       <router-link to="/" v-if="windowW <= 1024">
-        <button type="button" class="button-round button-round__right">
+        <button type="button" class="btn-round btn-round__right">
           <span class="fa fa-check-square"></span>
         </button>
       </router-link>
