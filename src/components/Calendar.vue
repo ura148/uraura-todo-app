@@ -11,7 +11,7 @@
         </div>
 
         <ul class="filter">
-          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">Active&Complete</button></li>
+          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">All</button></li>
           <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'active'">Active</button></li>
           <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'complete'">Complete</button></li>
         </ul>
@@ -576,6 +576,16 @@ export default {
 </script>
 
 <style scoped>
+.daydate {
+  margin-top: 16px;
+  text-align: center;
+}
+  .daydate-txt {
+    font-size: 1.6rem;
+  }
+  .daydate-arrow {
+    font-size: 1.6rem;
+  }
 .tab-box {
   width: 33.3333vw;
 }

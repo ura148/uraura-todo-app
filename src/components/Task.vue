@@ -12,7 +12,7 @@
         </ul>
 
         <ul class="filter">
-          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">Active&Complete</button></li>
+          <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'all'">All</button></li>
           <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'active'">Active</button></li>
           <li class="filter-item"><button class="filter-btn" type="submit" v-on:click="showTodoType = 'complete'">Complete</button></li>
         </ul>
@@ -40,7 +40,7 @@
                     <input type="text" v-model="list.name" class=" card-todo-input">
 
                     <p class="popup-item">Category</p>
-                    <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                    <select v-model="selectCategory" class="card-todo-input">
                       <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                         {{ option.text }}
                       </option>
@@ -78,7 +78,7 @@
                         <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
                         <p class="popup-item">Dead line</p>
-                        <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                        <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input">
 
                         <div class="popup-btn-box">
                           <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -92,7 +92,7 @@
 
                 <div>
                   <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
-                  <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
+                  <button type="button" v-on:click="createTodo(list, subkey)" class="btn btn-done"><span class="fa fa-check"></span></button>
                 </div>
               </div>
               <button  v-if="windowW >= 1024" type="button" name="makelist" @click="show=!show" class="btn-makelist" v-bind:class="{actives: show}">
@@ -122,7 +122,7 @@
                       <input type="text" v-model="list.name" class=" card-todo-input">
 
                       <p class="popup-item">Category</p>
-                      <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                      <select v-model="selectCategory" class="card-todo-input">
                         <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                           {{ option.text }}
                         </option>
@@ -160,7 +160,7 @@
                           <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
                           <p class="popup-item">Dead line</p>
-                          <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                          <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input">
 
                           <div class="popup-btn-box">
                             <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -205,7 +205,7 @@
                       <input type="text" v-model="list.name" class=" card-todo-input">
 
                       <p class="popup-item">Category</p>
-                      <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                      <select v-model="selectCategory" class="card-todo-input">
                         <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                           {{ option.text }}
                         </option>
@@ -243,7 +243,7 @@
                           <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
                           <p class="popup-item">Dead line</p>
-                          <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                          <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input">
 
                           <div class="popup-btn-box">
                             <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -288,7 +288,7 @@
                       <input type="text" v-model="list.name" class=" card-todo-input">
 
                       <p class="popup-item">Category</p>
-                      <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+                      <select v-model="selectCategory" class="card-todo-input">
                         <option v-for="option in options" v-bind:value="option.value" :key="option.id">
                           {{ option.text }}
                         </option>
@@ -326,7 +326,7 @@
                           <input type="text" v-model="subtodo.subName" v-bind:text="subtodo.subName" class="card-todo-input">
 
                           <p class="popup-item">Dead line</p>
-                          <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input card-todo-input__choose">
+                          <input type="date" v-model="subDeadline" placeholder="2020-01-01" class="card-todo-input">
 
                           <div class="popup-btn-box">
                             <button type="button" @click="subtodo.fixTodoShow=!subtodo.fixTodoShow" class="popup-btn popup-btn__negative popup-btn__left">Cancel</button>
@@ -334,13 +334,12 @@
                           </div>
                         </div>
                       </div>
-
                     </li>
                   </ul>
 
                   <div>
                     <input type="text" v-model="newTodoName" placeholder="Make Todo's name" class="card-todo-input">
-                    <button type="button" v-on:click="createTodo(list, subkey)"><span class="fa fa-check"></span></button>
+                    <button type="button" v-on:click="createTodo(list, subkey)" class="btn"><span class="fa fa-check"></span></button>
                   </div>
                 </div>
                 <button type="button" name="makelist" @click="show=!show" class="btn-makelist btn-makelist__scrollH" v-bind:class="{actives: show}">
@@ -354,7 +353,7 @@
       </div>
 
       <!-- Make list button -->
-      <button type="button" name="makelist" @click="show=!show" class="button-round button-round__left" v-bind:class="{actives: show}" v-if="windowW <= 1024">
+      <button type="button" name="makelist" @click="show=!show" class="btn-round btn-round__left" v-bind:class="{actives: show}" v-if="windowW <= 1024">
         <span v-if="show == false" class="fa fa-list"></span>
         <span v-else class="fa fa-times"></span>
       </button>
@@ -366,7 +365,7 @@
           <input type="text" v-model="newlistName" class="card-todo-input">
 
           <p class="popup-item">Category</p>
-          <select v-model="selectCategory" class="card-todo-input card-todo-input__choose">
+          <select v-model="selectCategory" class="card-todo-input">
             <option v-for="option in options" v-bind:value="option.value" :key="option.id">
               {{ option.text }}
             </option>
@@ -380,7 +379,7 @@
       </div>
 
       <router-link to="/calendar" v-if="windowW <= 1024">
-        <button type="button" name="makelist" class="button-round button-round__right">
+        <button type="button" name="makelist" class="btn-round btn-round__right">
           <span class="fa fa-calendar-check-o"></span>
         </button>
       </router-link>
@@ -590,6 +589,10 @@ export default {
 <style>
 input[type="checkbox"] { display: none; }
 
+label > span {
+  font-size: 1.6rem;
+}
+
 input[type="checkbox"] + label:last-child { margin-bottom: 0; }
 
 input[type="checkbox"] + label:before {
@@ -626,14 +629,18 @@ input[type="checkbox"]:checked + label:before {
   background-color: #d5e1fd;
   padding-top: 88px;
 }
-
 .container {
   box-sizing: border-box;
-  padding: 40px 18px 32px;
+  padding: 48px 18px 32px;
 }
 
+/*＝＝＝＝＝＝＝＝
+カード
+＝＝＝＝＝＝＝＝*/
 .card {
-  width: 100%
+  width: 100%;
+  padding-top: 8px;
+  text-align: left;
 }
   .card-category-name {
     margin-bottom: 16px;
@@ -681,20 +688,20 @@ input[type="checkbox"]:checked + label:before {
     margin-bottom: 0;
   }
   .card-todo-input {
-    width: 100%;
-    font-size: 1.6rem;
+    width: 50%;
+    font-size: 1.8rem;
     height: 20px;
     border: none;
     border-bottom: 1px solid #707070;
   }
-    .card-todo-input__choose{
-      width: 100px;
-      background-color: #fff;
-    }
+
+/*＝＝＝＝＝＝＝＝
+カテゴリーフィルタ＆期限フィルタ
+＝＝＝＝＝＝＝＝*/
 .tab {
   display: flex;
   position: fixed;
-  z-index: 4;
+  z-index: 1;
   top: 48px;
   background-color: #fff;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
@@ -711,11 +718,15 @@ input[type="checkbox"]:checked + label:before {
       border-bottom: 2px solid #707070;
     }
 
+/*＝＝＝＝＝＝＝＝
+フィルタエリア
+＝＝＝＝＝＝＝＝*/
 .filter {
+  padding: 4px;
   width: 100%;
   height: 40px;
   position: fixed;
-  z-index: 3;
+  z-index: 1;
   left: 50%;
   transform: translatex(-50%);
   display: flex;
@@ -735,6 +746,9 @@ input[type="checkbox"]:checked + label:before {
     box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
   }
 
+/*＝＝＝＝＝＝＝＝
+ボタン
+＝＝＝＝＝＝＝＝*/
 .btn {
   cursor: pointer;
   margin-left: 8px;
@@ -743,6 +757,14 @@ input[type="checkbox"]:checked + label:before {
   font-size: 1.6rem;
   border-radius: 36px;
 }
+  .btn-done {
+    margin-left: 16px;
+    width: 48px;
+    height: 22px;
+    border-radius: 8px;
+    background-color: #719CFC;
+    color: #fff;
+  }
   .btn-delete {
     background-color: #f4f4f4;
     color: #b4b4b4;
@@ -751,7 +773,31 @@ input[type="checkbox"]:checked + label:before {
     background-color: #f4f4f4;
     color: #b4b4b4;
   }
+  .btn-round {
+    position: fixed;
+    z-index: 10;
+    width: 56px;
+    height: 56px;
+    border-radius: 56px;
+    background-color: #719CFC;
+    color: #fff;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
+  }
+  .btn-round > span {
+    font-size: 2.4rem;
+  }
+    .btn-round__left {
+      left: 18px;
+      bottom: 22px;
+    }
+    .btn-round__right {
+      right: 18px;
+      bottom: 22px;
+    }
 
+/*＝＝＝＝＝＝＝＝
+ポップアップ
+＝＝＝＝＝＝＝＝*/
 .popup {
   content: '';
   display: block;
@@ -785,7 +831,6 @@ input[type="checkbox"]:checked + label:before {
     margin-top: 24px;
     text-align: center;
   }
-
   .popup-btn {
     padding: 8px 0;
     width: 80px;
@@ -807,9 +852,11 @@ input[type="checkbox"]:checked + label:before {
     .popup-btn__left {
       margin-right: 32px;
     }
+
+
 @media screen and (min-width:1024px) {
   .container {
-    padding: 40px 0px 32px
+    padding: 48px 0px 32px
   }
   .showchange {
     display: flex;
@@ -818,10 +865,11 @@ input[type="checkbox"]:checked + label:before {
     padding-top: 48px;
   }
   .tab-box {
+    height: 48px;
     max-width: 96px;
   }
   .category {
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 112px);
     display: flex;
     justify-content: space-between;
   }
@@ -836,7 +884,7 @@ input[type="checkbox"]:checked + label:before {
     }
 
     .card-scrollH {
-      min-height: calc(100vh - 160px);
+      min-height: calc(100vh - 152px);
       display: flex;
       overflow-x: scroll;
       align-items: flex-start;
@@ -871,6 +919,7 @@ input[type="checkbox"]:checked + label:before {
     }
     .popup-fix__todo {
       max-width: 640px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
     }
     .filter-item:first-of-type {
       margin-left: 40px;

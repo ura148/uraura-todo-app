@@ -138,36 +138,4 @@ html{
   font-size: 1.6rem;
   letter-spacing: 0.05rem;
 }
-
-.card {
-  padding-top: 8px;
-  width: 100%;
-  text-align: left;
-}
-
-.subcard {
-  padding: 12px;
-  margin: 16px;
-  background-color: #a6b6d5;
-}
-
-.button-round {
-  position: fixed;
-  z-index: 10;
-  width: 56px;
-  height: 56px;
-  border-radius: 56px;
-  background-color: #719CFC;
-  color: #fff;
-}
-
-.button-round__left {
-  left: 18px;
-  bottom: 22px;
-}
-
-.button-round__right {
-  right: 18px;
-  bottom: 22px;
-}
 </style>

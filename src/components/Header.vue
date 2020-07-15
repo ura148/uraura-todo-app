@@ -156,6 +156,5 @@ export default {
     .header-btn__changemode {
       top: 10px;
       left: 86px;
-
     }
 </style>
