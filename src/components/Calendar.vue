@@ -302,7 +302,7 @@
       </div>
 
 
-      <router-link to="/" v-if="windowW <= 1024">
+      <router-link to="/" v-if="windowW < 1024">
         <button type="button" class="btn-round btn-round__right">
           <span class="fa fa-check-square"></span>
         </button>

@@ -353,7 +353,7 @@
       </div>
 
       <!-- Make list button -->
-      <button type="button" name="makelist" @click="show=!show" class="btn-round btn-round__left" v-bind:class="{actives: show}" v-if="windowW <= 1024">
+      <button type="button" name="makelist" @click="show=!show" class="btn-round btn-round__left" v-bind:class="{actives: show}" v-if="windowW < 1024">
         <span v-if="show == false" class="fa fa-list"></span>
         <span v-else class="fa fa-times"></span>
       </button>
@@ -378,7 +378,7 @@
         </div>
       </div>
 
-      <router-link to="/calendar" v-if="windowW <= 1024">
+      <router-link to="/calendar" v-if="windowW < 1024">
         <button type="button" name="makelist" class="btn-round btn-round__right">
           <span class="fa fa-calendar-check-o"></span>
         </button>
