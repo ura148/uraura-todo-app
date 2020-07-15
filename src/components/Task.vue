@@ -872,9 +872,10 @@ input[type="checkbox"]:checked + label:before {
   .category {
     min-height: calc(100vh - 112px);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
     .category-box {
+      margin-right: 3.3333%;
       flex: 0 0 30%;
     }
     .category-box:first-of-type {
@@ -883,7 +884,6 @@ input[type="checkbox"]:checked + label:before {
     .category-box:last-of-type {
       margin-right: 16px;
     }
-
     .card-scrollH {
       min-height: calc(100vh - 152px);
       display: flex;
