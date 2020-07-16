@@ -26,7 +26,7 @@ let router =  new Router({
     {
       path: '/signup',
       name: 'Signup',
-      component: Signup,
+      component: Signup
     },
     {
       path: '/signin',
@@ -36,7 +36,8 @@ let router =  new Router({
     {
       path: '/calendar',
       name: 'Calendar',
-      component: Calendar
+      component: Calendar,
+      meta: { requiresAuth: true }
     }
   ]
 })
