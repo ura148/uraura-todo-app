@@ -269,7 +269,7 @@ input[type="checkbox"]:checked + label:before {
       margin-right: 32px;
     }
   .popup-input{
-    width: 50%;
+    width: 70%;
     font-size: 1.8rem;
     height: 20px;
     border: none;
